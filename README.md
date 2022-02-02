@@ -1,2 +1,4 @@
 # selekron-http
-Non-official library that interfaces Selekron Xikra over HTTP
+> This is a **non-official** library that interfaces Selekron Xikra over HTTP. Please refer to their website at [selekron.com](http://selekron.com/)
+> for official documentation and support.
+
