@@ -1,11 +1,13 @@
 package dev.nito.xikra;
 
 
+import dev.nito.xikra.dto.XikraHttpResponse;
+
 public interface XikraClientHttp {
 
     XikraType getXikraType();
 
-    void getXikraState(String ip);
+    XikraHttpResponse getXikraState(String ip);
 
     void getXikraState(String ip, int position);
 

@@ -1,25 +1,21 @@
 package dev.nito.xikra;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.time.Duration;
+import dev.nito.xikra.dto.XikraHttpResponse;
+import dev.nito.xikra.utils.ResponseParser;
+import dev.nito.xikra.utils.XikraResponseParserException;
+import lombok.RequiredArgsConstructor;
 
+import java.io.IOException;
+import java.net.http.HttpClient;
+import java.net.http.HttpResponse;
+
+import static dev.nito.xikra.utils.XikraClientUtils.get64PositionsHttpRequest;
+
+@RequiredArgsConstructor
 public class XikraClientHttpImpl implements XikraClientHttp {
 
     private final XikraType xikraType;
     private final HttpClient httpClient;
-
-    public XikraClientHttpImpl(XikraType xikraType) {
-        this.xikraType = xikraType;
-
-        httpClient = HttpClient.newBuilder()
-                .version(HttpClient.Version.HTTP_1_1)
-                .connectTimeout(Duration.ofSeconds(2))
-                .build();
-    }
 
     @Override
     public XikraType getXikraType() {
@@ -27,17 +23,15 @@ public class XikraClientHttpImpl implements XikraClientHttp {
     }
 
     @Override
-    public void getXikraState(String ip) {
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://" + ip + "/64OUT.cgi"))
-                .timeout(Duration.ofSeconds(2))
-                .GET()
-                .build();
+    public XikraHttpResponse getXikraState(String ip) {
 
         try {
-            HttpResponse<String> send = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (IOException | InterruptedException e) {
+            HttpResponse<String> response = httpClient.send(get64PositionsHttpRequest(ip), HttpResponse.BodyHandlers.ofString());
+            return new XikraHttpResponse(ResponseParser.parseBody(response.body(), xikraType));
+
+        } catch (IOException | InterruptedException | XikraResponseParserException e) {
             e.printStackTrace();
+            return new XikraHttpResponse("There was an error calling the Xikra: " + e.getMessage());
         }
     }
 

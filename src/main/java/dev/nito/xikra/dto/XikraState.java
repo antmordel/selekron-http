@@ -7,6 +7,6 @@ import java.util.Map;
 @Value
 public class XikraState {
 
-    Map<Integer, Boolean> state;
+    Map<Integer, Boolean> positions;
 
 }

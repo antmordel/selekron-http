@@ -7,6 +7,7 @@ import lombok.Getter;
  * Thus, we differentiate the ones with 16/32 and the ones with 8.
  */
 @Getter
+public
 enum XikraType {
 
     XIKRA_16("16"),
