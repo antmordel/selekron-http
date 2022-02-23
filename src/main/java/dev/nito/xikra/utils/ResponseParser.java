@@ -7,6 +7,7 @@ import lombok.experimental.UtilityClass;
 import java.util.HashMap;
 import java.util.Map;
 
+import static dev.nito.xikra.utils.TypeConversionsUtils.integerStringToBoolean;
 import static java.lang.String.format;
 
 /**
@@ -43,10 +44,7 @@ public class ResponseParser {
         }
     }
 
-    private static Boolean integerStringToBoolean(String element) {
-        int integerValue = Integer.parseInt(element);
-        return integerValue == 0 ? Boolean.FALSE : Boolean.TRUE;
-    }
+
 
     private static int xikraTypeToMaxSize(XikraType xikraType) {
         if (xikraType == XikraType.XIKRA_16) {

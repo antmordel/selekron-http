@@ -2,7 +2,6 @@ package dev.nito.xikra;
 
 
 import dev.nito.xikra.dto.XikraHttpResponse;
-import dev.nito.xikra.exception.XikraClient16HttpImpl;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;

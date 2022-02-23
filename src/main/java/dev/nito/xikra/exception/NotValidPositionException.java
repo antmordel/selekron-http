@@ -1,4 +1,4 @@
-package dev.nito.xikra;
+package dev.nito.xikra.exception;
 
 public class NotValidPositionException extends Exception {
 
