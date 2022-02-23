@@ -2,6 +2,7 @@ package dev.nito.xikra;
 
 
 import dev.nito.xikra.dto.XikraHttpResponse;
+import dev.nito.xikra.exception.XikraClient16HttpImpl;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -20,11 +21,10 @@ import java.util.Optional;
 
 import static dev.nito.xikra.utils.XikraClientUtils.get64PositionsHttpRequest;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class XikraClientHttpImplTest {
+class XikraClient16HttpImplTest {
 
     private static final String IP = "1.1.1.1";
 
@@ -33,14 +33,14 @@ class XikraClientHttpImplTest {
 
     @Test
     void shouldGetXikraType() {
-        XikraClientHttp xikraClientHttp = new XikraClientHttpImpl(XikraType.XIKRA_16, httpClient);
+        XikraClientHttp xikraClientHttp = new XikraClient16HttpImpl(httpClient);
         assertThat(xikraClientHttp.getXikraType()).isEqualTo(XikraType.XIKRA_16);
     }
 
     @SneakyThrows
     @Test
     void shouldGetStateOfXikraTypeAtMax() {
-        XikraClientHttp xikraClientHttp = new XikraClientHttpImpl(XikraType.XIKRA_16, httpClient);
+        XikraClientHttp xikraClientHttp = new XikraClient16HttpImpl(httpClient);
         when(httpClient.send(get64PositionsHttpRequest(IP), HttpResponse.BodyHandlers.ofString()))
                 .thenReturn(HttpResponseXikraImpl.builder().body("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0").build());
 
